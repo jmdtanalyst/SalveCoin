@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Database configuration
-MYSQL_HOST = os.getenv('MYSQL_HOST', 'localhost')
+MYSQL_HOST = os.getenv('MYSQL_HOST', 'oci.jmcloudpro.com')
 MYSQL_USER = os.getenv('MYSQL_USER', 'admin')
 MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', 'admin')
 MYSQL_DATABASE = os.getenv('MYSQL_DATABASE', 'salvecoin')
