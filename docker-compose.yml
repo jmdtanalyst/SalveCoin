@@ -1,6 +1,20 @@
 version: '3.8'
 
 services:
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: salvecoin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
   web:
     build: .
     ports:
@@ -9,5 +23,12 @@ services:
       - FLASK_APP=app.py
       - FLASK_ENV=production
       - PYTHONPATH=/app
-      - SUPABASE_URL=https://jhhkysptvpxbtqqdzmkx.supabase.co
-      - SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoaGt5c3B0dnB4YnRxcWR6bWt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgwMDY4NDEsImV4cCI6MjA2MzU4Mjg0MX0.A8mTOt8aGkwTVL9yEM10nIwbbG8e-kkd1W4d_1ALK7w
+      - MYSQL_HOST=db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - MYSQL_DATABASE=salvecoin
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
