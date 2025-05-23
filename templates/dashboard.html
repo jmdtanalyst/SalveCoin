@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card dashboard-card bg-success text-white">
+            <div class="card-body">
+                <h3>Receitas</h3>
+                <div class="value">R$ {{ "%.2f"|format(receitas) }}</div>
+                <i class="fas fa-arrow-up fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card dashboard-card bg-danger text-white">
+            <div class="card-body">
+                <h3>Despesas</h3>
+                <div class="value">R$ {{ "%.2f"|format(despesas) }}</div>
+                <i class="fas fa-arrow-down fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card dashboard-card bg-warning text-dark">
+            <div class="card-body">
+                <h3>Pendentes</h3>
+                <div class="value">R$ {{ "%.2f"|format(despesas_pendentes) }}</div>
+                <i class="fas fa-clock fa-2x"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Últimos Lançamentos</h5>
+        <a href="{{ url_for('transacoes') }}" class="btn btn-primary">Novo Lançamento</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Categoria</th>
+                        <th>Valor</th>
+                        <th>Tipo</th>
+                        <th>Vencimento</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.descricao }}</td>
+                        <td>{{ transaction.categoria }}</td>
+                        <td>R$ {{ "%.2f"|format(transaction.valor) }}</td>
+                        <td>
+                            <span class="badge {% if transaction.tipo == 'receita' %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ transaction.tipo }}
+                            </span>
+                        </td>
+                        <td>{{ transaction.vencimento }}</td>
+                        <td>
+                            <span class="badge {% if transaction.pago %}bg-success{% else %}bg-warning{% endif %}">
+                                {% if transaction.pago %}Pago{% else %}Pendente{% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

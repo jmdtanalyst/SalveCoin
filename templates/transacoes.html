@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Lançamentos{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title mb-4">Novo Lançamento</h5>
+        <form method="POST" action="{{ url_for('transacoes') }}">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <input type="text" class="form-control" id="descricao" name="descricao" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="categoria" class="form-label">Categoria</label>
+                    <input type="text" class="form-control" id="categoria" name="categoria" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="valor" class="form-label">Valor</label>
+                    <div class="input-group">
+                        <span class="input-group-text">R$</span>
+                        <input type="number" class="form-control" id="valor" name="valor" step="0.01" required>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="tipo" class="form-label">Tipo</label>
+                    <select class="form-select" id="tipo" name="tipo" required>
+                        <option value="">Selecione...</option>
+                        <option value="receita">Receita</option>
+                        <option value="despesa">Despesa</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="vencimento" class="form-label">Vencimento</label>
+                    <input type="date" class="form-control" id="vencimento" name="vencimento" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="pago" name="pago">
+                        <label class="form-check-label" for="pago">Pago</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Salvar Lançamento</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
